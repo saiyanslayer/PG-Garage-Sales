@@ -1,0 +1,29 @@
+﻿<Window x:Class="KijijiScannerWPF.Planning"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KijijiScannerWPF"
+        xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+        mc:Ignorable="d"
+        Title="Planning" Height="600" Width="900">
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Panel.ZIndex="0" >
+            <m:Map 
+                x:Name="BingMap" 
+                CredentialsProvider="co5HlO5MDTfFdfQV2KMU~lWLwr4zWvyByiisRMvJzyQ~Ajr3X4HZOoln0paw7U5i0mXNxVNi07MUlAPTpKsVIf42QSDSDH9EwfQU7NSssJXy" 
+                Center="53.910472, -122.781968" ZoomLevel="12" 
+                Culture="en-ca"  Height="568">
+                
+            </m:Map>
+        </StackPanel>
+        <ListBox x:Name="postingsListBox" Grid.Column="0" Margin="10,10,10,10" SelectionChanged="postingsListBox_SelectionChanged"/>
+        <Label x:Name="timeLabel" Grid.Column="2" Content="08:00 am" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+    </Grid>
+</Window>

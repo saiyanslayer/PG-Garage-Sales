@@ -1,0 +1,102 @@
+﻿<Window x:Class="KijijiScannerWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+        Title="PG Garage Sales" Height="629" Width="1009.403">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="250"/>
+        </Grid.ColumnDefinitions>
+
+        
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Panel.ZIndex="0" >
+            <m:Map 
+                x:Name="BingMap" 
+                CredentialsProvider="co5HlO5MDTfFdfQV2KMU~lWLwr4zWvyByiisRMvJzyQ~Ajr3X4HZOoln0paw7U5i0mXNxVNi07MUlAPTpKsVIf42QSDSDH9EwfQU7NSssJXy" 
+                Center="53.910472, -122.781968" ZoomLevel="12" 
+                Culture="en-ca"  Height="600">
+            </m:Map>
+        </StackPanel>
+
+        <Menu Grid.Column="0" Grid.ColumnSpan="3" Height="22" VerticalAlignment="Top">
+            <MenuItem Header="_File">
+                <MenuItem x:Name="ScanMenuItem" Header="_Scan..."  Click="Button_Click"/>
+                <MenuItem Header="_Open Postings" Click="MenuItem_Click_1"/>
+                <MenuItem Header="_Save Postings" Click="MenuItem_Click"/>
+                <MenuItem x:Name="SavePlanMenuItem" Header="_Save Plan" Click="SavePlan_Click"/>
+                <MenuItem x:Name="ExportPlanMenuItem" Header="_Export Plan" Click="ExportPlan_Click"/>
+                <MenuItem x:Name="PrintMenuItem" Header="_Print Plan" Click="PrintButton_Click"/>
+            </MenuItem>
+        </Menu>
+        
+        <StackPanel Grid.Column="0" Panel.ZIndex="2">
+            <Calendar x:Name="KijijiCalendar" Margin="0,30,0,0" />
+            <DockPanel Background="White" >
+                <StackPanel DockPanel.Dock="Left">
+                    <Button x:Name="ScanButton" DockPanel.Dock="Left"  Content="Scan" HorizontalAlignment="Left" Margin="10,10,0,0" Width="75" Click="Button_Click"/>
+                    <Button x:Name="PrintButton" DockPanel.Dock="Left" Content="Print" HorizontalAlignment="Left" Margin="10,10,10,10" Width="75" Click="PrintButton_Click" IsEnabled="False"/>
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Right">
+                    <Label x:Name="PostLabel" DockPanel.Dock="Right" Height="23" Width="99" Margin="0,10,0,0" FontSize="8" Content="0 posts of 0 total Scanned"/>
+                    <Label x:Name="NumberOfPostsLabel" DockPanel.Dock="Right" Height="23" Width="99" FontSize="8" Content="Posts Displayed: 0"/>
+                </StackPanel>
+            </DockPanel>
+
+            <StackPanel >
+                <ListBox x:Name="PostListbox" HorizontalContentAlignment="Stretch" Height="300" Margin="5,10,5,10" SelectionChanged="PostListbox_SelectionChanged" KeyDown="PostListbox_KeyDown" VerticalAlignment="Top">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Title}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Panel.ZIndex="2" Background="White" Margin="10,30,10,10" Height="Auto" VerticalAlignment="Top">
+            <TextBlock  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="10,0,0,0">
+                <Hyperlink x:Name="AdUrlLink" RequestNavigate="AdUrlLink_RequestNavigate">
+                    <TextBlock x:Name="AdIdTextblock" Text="Web Link"/>
+                </Hyperlink>
+            </TextBlock>
+            
+            <TextBlock HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Title:" VerticalAlignment="Top"/>
+            <TextBox x:Name="TitleTextbox" Height="23" Margin="4,4,4,4" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TitleTextbox_TextChanged"/>
+            
+            <TextBlock x:Name="PostingDateTextblock" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Posting Date:" VerticalAlignment="Top"/>
+            
+            <StackPanel>
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Address:" VerticalAlignment="Top"/>
+                <TextBox x:Name="AddressTextbox" Height="23" Margin="4,4,4,4" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="AddressTextbox_TextChanged"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="GeolocationButton" Margin="4,0,2,2" Click="GeolocationButton_Click" >Geolocation</Button> 
+                </StackPanel>
+            </StackPanel>
+            <TextBlock HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Date and Time:" VerticalAlignment="Top"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="DateTextbox" HorizontalAlignment="Left" Height="23"  TextWrapping="Wrap" Width="100" Margin="4,0,5,0" Text="" VerticalAlignment="Top" TextChanged="DateTextbox_TextChanged"/>
+                <ComboBox x:Name="StartTimeCombobox" VerticalAlignment="Top" Width="120" SelectionChanged="StartTimeCombobox_SelectionChanged" />
+            </StackPanel>
+
+            <TextBlock HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Description:" VerticalAlignment="Top"/>
+            <TextBox x:Name="DetailsTextbox" Height="123" Margin="4,4,4,4" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="DetailsTextbox_TextChanged"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel>
+                    <Button x:Name="UpButton" Content="Up" Width="75" Margin="5,5,5,5" Click="UpButton_Click" />
+                    <Button x:Name="DownButton" Content="Down" Width="75" Margin="5,0,5,5" Click="UpButton_Copy_Click" />
+                </StackPanel>
+                <StackPanel>
+                    <Button x:Name="RemoveButton" Content="Remove" Width="75" Margin="5,5,5,5" Click="RemoveButton_Click"/>
+                    <Button x:Name="SortButton" Content="Sort" Width="75" Margin="5,0,5,5" Click="SortButton_Click"/>
+                </StackPanel>
+            </StackPanel>
+            
+        </StackPanel>
+        <Button x:Name="PlanningButton" Content="Plan Route" Click="PlanningButton_Click" Grid.Column="1" HorizontalAlignment="Left" Margin="200,564,0,0" VerticalAlignment="Top" Width="75"/>
+    </Grid>
+</Window>
